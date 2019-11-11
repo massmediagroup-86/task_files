@@ -45,10 +45,11 @@ class FileController extends Controller
      * @param SaveUserFileContract $saveUserFileContract
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFile $storeRequest, ManageUserFile $manageUserFile, SaveUserFileContract $saveUserFileContract)
+    public function store(StoreFile $storeRequest, ManageUserFile $manageUserFile)
     {
         $validated = $storeRequest->validated();
-        $manageUserFile->save($saveUserFileContract, $validated, Auth::id());
+
+        $manageUserFile->save($validated, Auth::id());
 
         return redirect()->route('files.index');
     }
@@ -81,7 +82,6 @@ class FileController extends Controller
      *
      * @param StoreFile $storeRequest
      * @param ManageUserFile $manageUserFile
-     * @param SaveUserFileContract $saveUserFileContract,
      * @param UserFile $file
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -89,12 +89,11 @@ class FileController extends Controller
     public function update(
         StoreFile $storeRequest,
         ManageUserFile $manageUserFile,
-        SaveUserFileContract $saveUserFileContract,
         UserFile $file
     ) {
         $validated = $storeRequest->validated();
 
-        $manageUserFile->save($saveUserFileContract, $validated, Auth::id(), $file);
+        $manageUserFile->save($validated, Auth::id(), $file);
 
         return redirect()->route('files.index');
     }

@@ -3,17 +3,20 @@
 namespace App\Services;
 
 use App\UserFile;
-use App\Contracts\SaveUserFileContract;
 use Illuminate\Support\Facades\Storage;
-
 
 class ManageUserFile
 {
+    private $saveFile;
+
+    public function __construct(SaveUserFile $saveFile)
+    {
+        $this->saveFile = $saveFile;
+    }
 
     /**
      * Save new or update existing model
      *
-     * @param SaveUserFileContract $saveFile
      * @param array $data
      * @param int $user_id
      * @param UserFile|null $userFileModel
@@ -22,7 +25,6 @@ class ManageUserFile
      */
 
     public function save(
-        SaveUserFileContract $saveFile,
         array $data,
         int $user_id,
         UserFile $userFileModel = null
@@ -38,7 +40,7 @@ class ManageUserFile
             $model->user_id = $user_id;
         }
 
-        $uploadedFileName = $saveFile->save();
+        $uploadedFileName = $this->saveFile->save($data['file_name']);
         if ($uploadedFileName) {
             $model->file_name = $uploadedFileName;
         }
@@ -55,7 +57,7 @@ class ManageUserFile
 
     public function removeUserFile(UserFile $userFileModel)
     {
-        Storage::delete($userFileModel->file_name);
+        Storage::disk('public')->delete($userFileModel->file_name);
 
         return $userFileModel->delete();
     }

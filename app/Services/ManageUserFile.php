@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\UserFile;
 use App\Contracts\SaveUserFileContract;
+use Illuminate\Support\Facades\Storage;
+
 
 class ManageUserFile
 {
@@ -53,12 +55,9 @@ class ManageUserFile
 
     public function removeUserFile(UserFile $userFileModel)
     {
-        /* if ($userFileModel->file_name) {
-             @unlink(self::storePath($userFileModel->file_name));
-         }
+        Storage::delete($userFileModel->file_name);
 
-         return $userFileModel->delete();*/
-
+        return $userFileModel->delete();
     }
 
 

@@ -22,6 +22,4 @@ class UserFile extends Model
     }
 
 
-
-
 }

@@ -13,19 +13,19 @@ class UserFilePolicy
     /**
      * Determine whether the user can view any user files.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-       return true;
+        return true;
     }
 
     /**
      * Determine whether the user can view the user file.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserFile  $userFile
+     * @param \App\User $user
+     * @param \App\UserFile $userFile
      * @return mixed
      */
     public function view(User $user, UserFile $userFile)
@@ -36,7 +36,7 @@ class UserFilePolicy
     /**
      * Determine whether the user can create user files.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -47,8 +47,8 @@ class UserFilePolicy
     /**
      * Determine whether the user can update the user file.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserFile  $userFile
+     * @param \App\User $user
+     * @param \App\UserFile $userFile
      * @return mixed
      */
     public function update(User $user, UserFile $userFile)
@@ -59,8 +59,8 @@ class UserFilePolicy
     /**
      * Determine whether the user can delete the user file.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserFile  $userFile
+     * @param \App\User $user
+     * @param \App\UserFile $userFile
      * @return mixed
      */
     public function delete(User $user, UserFile $userFile)
@@ -71,8 +71,8 @@ class UserFilePolicy
     /**
      * Determine whether the user can restore the user file.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserFile  $userFile
+     * @param \App\User $user
+     * @param \App\UserFile $userFile
      * @return mixed
      */
     public function restore(User $user, UserFile $userFile)
@@ -83,8 +83,8 @@ class UserFilePolicy
     /**
      * Determine whether the user can permanently delete the user file.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserFile  $userFile
+     * @param \App\User $user
+     * @param \App\UserFile $userFile
      * @return mixed
      */
     public function forceDelete(User $user, UserFile $userFile)

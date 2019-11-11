@@ -12,7 +12,7 @@ class ManageToken
      * @return string
      */
 
-    protected function generateToken()
+    protected function generateToken():string
     {
         return sha1(rand() . time());
     }
@@ -23,11 +23,12 @@ class ManageToken
      * @return bool
      */
 
-    public function createToken(UserFile $userFile)
+    public function createToken(UserFile $userFile):bool
     {
         $token = new Token();
         $token->user_file_id = $userFile->id;
         $token->temporary_token = $this->generateToken();
+
         return $token->save();
     }
 

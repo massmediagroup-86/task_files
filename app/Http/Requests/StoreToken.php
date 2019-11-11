@@ -24,7 +24,7 @@ class StoreToken extends FormRequest
     public function rules()
     {
         return [
-            'user_file_id'=>"integer",
+            'user_file_id' => "integer",
         ];
     }
 }

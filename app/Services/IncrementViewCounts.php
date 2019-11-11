@@ -1,5 +1,6 @@
 <?php
-namespace  App\Services;
+
+namespace App\Services;
 
 use App\Token;
 
@@ -9,8 +10,8 @@ class IncrementViewCounts
 {
     public function increment(UserFile $file): bool
     {
-       $file->view_count++;
+        $file->view_count++;
 
-       return $file->save();
+        return $file->save();
     }
 }

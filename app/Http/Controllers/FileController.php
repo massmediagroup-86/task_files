@@ -13,7 +13,7 @@ class FileController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(UserFile::class,'file');
+        $this->authorizeResource(UserFile::class, 'file');
     }
 
     /**
@@ -23,8 +23,8 @@ class FileController extends Controller
      */
     public function index()
     {
-        $files = UserFile::query()->where('user_id',Auth::id())->orderBy('created_at','desc')->get();
-        return view('files.index',['user_files'=>$files]);
+        $files = UserFile::query()->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return view('files.index', ['user_files' => $files]);
     }
 
     /**
@@ -34,62 +34,68 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('files.form',['userFileModel'=>null]);
+        return view('files.form', ['userFileModel' => null]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  StoreFile  $storeRequest
-     * @param  ManageUserFile  $manageUserFile
+     * @param \Illuminate\Http\Request $request
+     * @param StoreFile $storeRequest
+     * @param ManageUserFile $manageUserFile
      * @return \Illuminate\Http\Response
      */
     public function store(Request $httpRequest, StoreFile $storeRequest, ManageUserFile $manageUserFile)
     {
         $validated = $storeRequest->validated();
-        $manageUserFile->save($httpRequest,$validated);
+        $manageUserFile->save($httpRequest, $validated);
+
         return redirect()->route('files.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  UserFile $file
+     * @param UserFile $file
      * @return \Illuminate\Http\Response
      */
     public function show(UserFile $file)
     {
-        return view('files.show',['userFileModel'=>$file]);
+        return view('files.show', ['userFileModel' => $file]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  UserFile $file
+     * @param UserFile $file
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(UserFile $file)
     {
-        return view('files.form',['userFileModel'=>$file]);
+        return view('files.form', ['userFileModel' => $file]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @param  StoreFile  $storeRequest
-     * @param  ManageUserFile  $manageUserFile
-     * @param  UserFile  $file
+     * @param \Illuminate\Http\Request $httpRequest
+     * @param StoreFile $storeRequest
+     * @param ManageUserFile $manageUserFile
+     * @param UserFile $file
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $httpRequest, StoreFile $storeRequest, ManageUserFile $manageUserFile, UserFile $file)
-    {
+    public function update(
+        Request $httpRequest,
+        StoreFile $storeRequest,
+        ManageUserFile $manageUserFile,
+        UserFile $file
+    ) {
         $validated = $storeRequest->validated();
 
-        $manageUserFile->save($validated,$file);
+        $manageUserFile->save($validated, $file);
+
         return redirect()->route('files.index');
     }
 
@@ -97,8 +103,8 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  UserFile $file
-     * @param  ManageUserFile $manageUserFile
+     * @param UserFile $file
+     * @param ManageUserFile $manageUserFile
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserFile $file, ManageUserFile $manageUserFile)

@@ -17,7 +17,7 @@ class TokensController extends Controller
 
     public function index(UserFile $file)
     {
-        return view('tokens.index',['file'=>$file]);
+        return view('tokens.index', ['file' => $file]);
     }
 
 
@@ -30,9 +30,8 @@ class TokensController extends Controller
     public function generate(ManageToken $manageTokenService, UserFile $file)
     {
         $manageTokenService->createToken($file);
-        return redirect()->route('tokens.index',['file'=>$file] );
+        return redirect()->route('tokens.index', ['file' => $file]);
     }
-
 
 
 }

@@ -14,6 +14,6 @@ class Token extends Model
 
     public function file()
     {
-        return $this->belongsTo('App\UserFile','user_file_id','id');
+        return $this->belongsTo('App\UserFile', 'user_file_id', 'id');
     }
 }

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Services;
+
 use App\UserFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +14,9 @@ class ManageUserFile
      * @return string
      */
 
-    public static function storePath($modelFileName=null)
+    public static function storePath($modelFileName = null)
     {
-        return public_path('/img/'.($modelFileName ? $modelFileName : '') );
+        return public_path('/img/' . ($modelFileName ? $modelFileName : ''));
     }
 
     /**
@@ -27,44 +29,43 @@ class ManageUserFile
      * @return bool
      */
 
-    public function save(Request $httpRequest, array $data, UserFile $userFileModel=null)
+    public function save(Request $httpRequest, array $data, UserFile $userFileModel = null)
     {
         $model = $userFileModel ? $userFileModel : new UserFile();
 
         $model_file_name = $model->file_name;
-       // var_dump($data); die();
+
         $model->name = $data['name'];
         $model->comment = $data['comment'];
         $model->delete_date = $data['delete_date'];
-        if(!$userFileModel)
-        {
+
+        if (!$userFileModel) {
             $model->permanent_token = $this->generateAccessToken();
             $model->user_id = Auth::id();
         }
 
-        if ($httpRequest->hasFile('file_name'))
-        {
-            if ($httpRequest->file('file_name')->isValid())
-            {
-                if($model_file_name)
+        if ($httpRequest->hasFile('file_name')) {
+            if ($httpRequest->file('file_name')->isValid()) {
+                if ($model_file_name) {
                     @unlink(self::storePath($model_file_name));
+                }
                 $file = $httpRequest->file('file_name');
-                $filename  = time() . '.' . $file->getClientOriginalExtension();
+                $filename = time() . '.' . $file->getClientOriginalExtension();
                 /*   var_dump($file);
                    var_dump($filename);
                    var_dump(self::storePath());
                    die();*/
-                $file->move(self::storePath(),$filename);
+                $file->move(self::storePath(), $filename);
 
                 $model->file_name = $filename;
             }
 
 
-        }
-        else
+        } else {
             $model->file_name = $model_file_name;
+        }
+
         return $model->save();
-       // return true;
     }
 
 
@@ -76,15 +77,13 @@ class ManageUserFile
 
     public function removeUserFile(UserFile $userFileModel)
     {
-        if($userFileModel->file_name)
-        {
+        if ($userFileModel->file_name) {
             @unlink(self::storePath($userFileModel->file_name));
         }
 
         return $userFileModel->delete();
 
     }
-
 
 
     /**
@@ -95,7 +94,7 @@ class ManageUserFile
 
     public function generateAccessToken()
     {
-        return sha1(rand().time());
+        return sha1(rand() . time());
     }
 
 

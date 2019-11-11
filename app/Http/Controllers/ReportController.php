@@ -14,6 +14,6 @@ class ReportController extends Controller
      */
     public function show(UserFile $file)
     {
-        return view('reports.show',['file'=>$file]);
+        return view('reports.show', ['file' => $file]);
     }
 }

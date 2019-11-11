@@ -1,3 +1,3 @@
 <div>
-    <img src="{{asset('userfiles/'.$file->file_name) }}">
+    <img src="{{asset('storage/'.$file->file_name) }}">
 </div>

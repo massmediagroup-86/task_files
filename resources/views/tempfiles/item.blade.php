@@ -1,1 +1,3 @@
-<div>Temp file</div>
+<div>
+    <img src="{{asset('userfiles/'.$file->file_name) }}">
+</div>

@@ -37,7 +37,7 @@ class TempfileController extends Controller
         $incrementViewCounts->increment($token->file);
         $deactivateToken->deactivate($token);
 
-        return response()->file(ManageUserFile::storePath($token->file->file_name));
+        return view('tempfiles.item', ['file' => $token->file]);
     }
 
 }

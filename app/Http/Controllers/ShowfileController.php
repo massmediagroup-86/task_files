@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ManageUserFile;
 use App\Services\IncrementViewCounts;
 use App\UserFile;
-use Illuminate\Http\Request;
-
 
 class ShowfileController extends Controller
 {

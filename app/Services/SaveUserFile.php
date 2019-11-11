@@ -7,6 +7,7 @@ use Illuminate\Http\UploadedFile;
 class SaveUserFile
 {
     /**
+     * @param UploadedFile $file
      * @return string
      */
     public function save(UploadedFile $file): string

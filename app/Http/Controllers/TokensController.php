@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\UserFile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Services\ManageToken;
 
 class TokensController extends Controller

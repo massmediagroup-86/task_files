@@ -9,10 +9,9 @@ class TemporaryAccessToFile
 
     /**
      * @param $temporary_token
-     * @return bool|Token
+     * @return bool|App\Token
      */
-
-    public function getToken($temporary_token)
+    public function getToken(string $temporary_token)
     {
         $token = Token::query()->with('file')->where([
             ['temporary_token', '=', $temporary_token],

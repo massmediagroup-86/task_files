@@ -5,11 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\DeactivateToken;
 use App\Services\IncrementViewCounts;
 use App\Services\TemporaryAccessToFile;
-use App\UserFile;
-use Illuminate\Http\Request;
-use App\Services\ManageUserFile;
-use Illuminate\Support\Facades\Cookie;
-
 
 class TempfileController extends Controller
 {

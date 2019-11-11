@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Token;
-
 use App\UserFile;
 
 class IncrementViewCounts

@@ -48,14 +48,14 @@ class ManageUserFile
         return $model->save();
     }
 
-
     /**
      * Remove model and user file
-     *
      * @param UserFile $userFileModel
+     * @return bool
+     * @throws \Exception
      */
 
-    public function removeUserFile(UserFile $userFileModel)
+    public function removeUserFile(UserFile $userFileModel):bool
     {
         Storage::disk('public')->delete($userFileModel->file_name);
 
@@ -69,7 +69,7 @@ class ManageUserFile
      * @return string
      */
 
-    public function generateAccessToken()
+    public function generateAccessToken():string
     {
         return sha1(rand() . time());
     }

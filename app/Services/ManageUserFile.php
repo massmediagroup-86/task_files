@@ -51,10 +51,7 @@ class ManageUserFile
                 }
                 $file = $httpRequest->file('file_name');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                /*   var_dump($file);
-                   var_dump($filename);
-                   var_dump(self::storePath());
-                   die();*/
+
                 $file->move(self::storePath(), $filename);
 
                 $model->file_name = $filename;

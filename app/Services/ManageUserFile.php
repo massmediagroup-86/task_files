@@ -3,37 +3,29 @@
 namespace App\Services;
 
 use App\UserFile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Contracts\SaveUserFileContract;
 
 class ManageUserFile
 {
 
     /**
-     * @param string|null $modelFileName
-     * @return string
-     */
-
-    public static function storePath($modelFileName = null)
-    {
-        return public_path('/img/' . ($modelFileName ? $modelFileName : ''));
-    }
-
-    /**
      * Save new or update existing model
      *
-     * @param Request $httpRequest
+     * @param SaveUserFileContract $saveFile
      * @param array $data
+     * @param int $user_id
      * @param UserFile|null $userFileModel
      *
      * @return bool
      */
 
-    public function save(Request $httpRequest, array $data, UserFile $userFileModel = null)
-    {
+    public function save(
+        SaveUserFileContract $saveFile,
+        array $data,
+        int $user_id,
+        UserFile $userFileModel = null
+    ): bool {
         $model = $userFileModel ? $userFileModel : new UserFile();
-
-        $model_file_name = $model->file_name;
 
         $model->name = $data['name'];
         $model->comment = $data['comment'];
@@ -41,25 +33,12 @@ class ManageUserFile
 
         if (!$userFileModel) {
             $model->permanent_token = $this->generateAccessToken();
-            $model->user_id = Auth::id();
+            $model->user_id = $user_id;
         }
 
-        if ($httpRequest->hasFile('file_name')) {
-            if ($httpRequest->file('file_name')->isValid()) {
-                if ($model_file_name) {
-                    @unlink(self::storePath($model_file_name));
-                }
-                $file = $httpRequest->file('file_name');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-
-                $file->move(self::storePath(), $filename);
-
-                $model->file_name = $filename;
-            }
-
-
-        } else {
-            $model->file_name = $model_file_name;
+        $uploadedFileName = $saveFile->save();
+        if ($uploadedFileName) {
+            $model->file_name = $uploadedFileName;
         }
 
         return $model->save();
@@ -74,11 +53,11 @@ class ManageUserFile
 
     public function removeUserFile(UserFile $userFileModel)
     {
-        if ($userFileModel->file_name) {
-            @unlink(self::storePath($userFileModel->file_name));
-        }
+        /* if ($userFileModel->file_name) {
+             @unlink(self::storePath($userFileModel->file_name));
+         }
 
-        return $userFileModel->delete();
+         return $userFileModel->delete();*/
 
     }
 

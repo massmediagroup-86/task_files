@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFile;
-use Illuminate\Http\Request;
 use App\UserFile;
 use App\Services\ManageUserFile;
+use App\Contracts\SaveUserFileContract;
 use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
@@ -40,15 +40,15 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @param StoreFile $storeRequest
      * @param ManageUserFile $manageUserFile
+     * @param SaveUserFileContract $saveUserFileContract
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $httpRequest, StoreFile $storeRequest, ManageUserFile $manageUserFile)
+    public function store(StoreFile $storeRequest, ManageUserFile $manageUserFile, SaveUserFileContract $saveUserFileContract)
     {
         $validated = $storeRequest->validated();
-        $manageUserFile->save($httpRequest, $validated);
+        $manageUserFile->save($saveUserFileContract, $validated, Auth::id());
 
         return redirect()->route('files.index');
     }
@@ -79,22 +79,22 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $httpRequest
      * @param StoreFile $storeRequest
      * @param ManageUserFile $manageUserFile
+     * @param SaveUserFileContract $saveUserFileContract,
      * @param UserFile $file
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(
-        Request $httpRequest,
         StoreFile $storeRequest,
         ManageUserFile $manageUserFile,
+        SaveUserFileContract $saveUserFileContract,
         UserFile $file
     ) {
         $validated = $storeRequest->validated();
 
-        $manageUserFile->save($validated, $file);
+        $manageUserFile->save($saveUserFileContract, $validated, Auth::id(), $file);
 
         return redirect()->route('files.index');
     }

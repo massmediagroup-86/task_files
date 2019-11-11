@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\CheckFileDeleteDate;
 
 class StoreFile extends FormRequest
 {
@@ -27,13 +28,7 @@ class StoreFile extends FormRequest
             'name' => 'required|string|max:255',
             'comment' => 'string',
             'file_name' => 'mimes:jpeg,bmp,png,jpg|max:5120',
-            'delete_date' => [
-                function ($attribute, $value, $fail) {
-                    if (!empty($value) && strtotime($value) < strtotime(date("Y-m-d"))) {
-                        $fail('Delete date can not be less than today');
-                    }
-                },
-            ]
+            'delete_date' => [new CheckFileDeleteDate ]
         ];
     }
 }

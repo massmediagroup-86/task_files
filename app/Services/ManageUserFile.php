@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\UserFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ManageUserFile
 {
@@ -13,16 +14,6 @@ class ManageUserFile
     {
         $this->saveFile = $saveFile;
     }
-
-    /**
-     * Save new or update existing model
-     *
-     * @param array $data
-     * @param int $user_id
-     * @param UserFile|null $userFileModel
-     *
-     * @return bool
-     */
 
     public function save(
         array $data,
@@ -40,9 +31,11 @@ class ManageUserFile
             $model->user_id = $user_id;
         }
 
-        $uploadedFileName = $this->saveFile->save($data['file_name']);
-        if ($uploadedFileName) {
-            $model->file_name = $uploadedFileName;
+        if (isset($data['file_name'])) {
+            $uploadedFileName = $this->saveFile->save($data['file_name']);
+            if ($uploadedFileName) {
+                $model->file_name = $uploadedFileName;
+            }
         }
 
         return $model->save();
@@ -54,7 +47,6 @@ class ManageUserFile
      * @return bool
      * @throws \Exception
      */
-
     public function removeUserFile(UserFile $userFileModel):bool
     {
         Storage::disk('public')->delete($userFileModel->file_name);
@@ -68,10 +60,9 @@ class ManageUserFile
      *
      * @return string
      */
-
     public function generateAccessToken():string
     {
-        return sha1(rand() . time());
+        return Str::uuid();
     }
 
 

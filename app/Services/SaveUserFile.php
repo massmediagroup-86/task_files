@@ -13,15 +13,16 @@ class SaveUserFile
     public function save(UploadedFile $file): string
     {
         $name = '';
+
         if ($file->isValid()) {
-            $name = rand().'_'.time().'.'.$file->getClientOriginalExtension();
+            $name = rand() . '_' . time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs(
                 'public',
                 $name
             );
         }
-        return $name;
 
+        return $name;
     }
 
 }

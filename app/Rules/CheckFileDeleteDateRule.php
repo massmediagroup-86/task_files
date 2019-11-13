@@ -4,18 +4,8 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class CheckFileDeleteDate implements Rule
+class CheckFileDeleteDateRule implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -23,7 +13,7 @@ class CheckFileDeleteDate implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return empty($value) || strtotime($value) >= strtotime(date("Y-m-d"));
     }

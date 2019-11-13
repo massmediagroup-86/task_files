@@ -4,26 +4,16 @@ namespace App\Services;
 
 use App\Token;
 use App\UserFile;
+use Illuminate\Support\Str;
 
 class ManageToken
 {
-    /**
-     *
-     * @return string
-     */
-
-    protected function generateToken():string
+    private function generateToken(): string
     {
-        return sha1(rand() . time());
+        return Str::uuid();
     }
 
-
-    /**
-     * @param UserFile $userFile
-     * @return bool
-     */
-
-    public function createToken(UserFile $userFile):bool
+    public function createToken(UserFile $userFile): bool
     {
         $token = new Token();
         $token->user_file_id = $userFile->id;
@@ -31,6 +21,4 @@ class ManageToken
 
         return $token->save();
     }
-
-
 }

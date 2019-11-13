@@ -16,7 +16,7 @@ class UserFilePolicy
      * @param \App\User $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return true;
     }
@@ -26,9 +26,9 @@ class UserFilePolicy
      *
      * @param \App\User $user
      * @param \App\UserFile $userFile
-     * @return mixed
+     * @return bool
      */
-    public function view(User $user, UserFile $userFile)
+    public function view(User $user, UserFile $userFile): bool
     {
         return $user->id === $userFile->user_id;
     }
@@ -37,9 +37,9 @@ class UserFilePolicy
      * Determine whether the user can create user files.
      *
      * @param \App\User $user
-     * @return mixed
+     * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }
@@ -49,9 +49,9 @@ class UserFilePolicy
      *
      * @param \App\User $user
      * @param \App\UserFile $userFile
-     * @return mixed
+     * @return bool
      */
-    public function update(User $user, UserFile $userFile)
+    public function update(User $user, UserFile $userFile): bool
     {
         return $user->id == $userFile->user_id;
     }
@@ -61,9 +61,9 @@ class UserFilePolicy
      *
      * @param \App\User $user
      * @param \App\UserFile $userFile
-     * @return mixed
+     * @return bool
      */
-    public function delete(User $user, UserFile $userFile)
+    public function delete(User $user, UserFile $userFile): bool
     {
         return $user->id === $userFile->user_id;
     }
@@ -73,9 +73,9 @@ class UserFilePolicy
      *
      * @param \App\User $user
      * @param \App\UserFile $userFile
-     * @return mixed
+     * @return bool
      */
-    public function restore(User $user, UserFile $userFile)
+    public function restore(User $user, UserFile $userFile): bool
     {
         return $user->id === $userFile->user_id;
     }
@@ -85,9 +85,9 @@ class UserFilePolicy
      *
      * @param \App\User $user
      * @param \App\UserFile $userFile
-     * @return mixed
+     * @return bool
      */
-    public function forceDelete(User $user, UserFile $userFile)
+    public function forceDelete(User $user, UserFile $userFile): bool
     {
         return $user->id === $userFile->user_id;
     }

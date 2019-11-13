@@ -10,14 +10,13 @@ class ShowfileController extends Controller
 
     /**
      * @param IncrementViewCounts $incrementViewCounts
-     * @param string $permanent_token
+     * @param string $permanentToken
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-
-    public function file(IncrementViewCounts $incrementViewCounts, string $permanent_token)
+    public function file(IncrementViewCounts $incrementViewCounts, string $permanentToken)
     {
-        $file = UserFile::query()->where('permanent_token', '=', $permanent_token)->first();
+        $file = UserFile::query()->where('permanent_token', '=', $permanentToken)->first();
         if (!$file) {
             abort(404);
         }

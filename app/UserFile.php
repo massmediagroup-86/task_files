@@ -18,7 +18,7 @@ class UserFile extends Model
 
     public function tokens()
     {
-        return $this->hasMany('App\Token');
+        return $this->hasMany(Token::class);
     }
 
 

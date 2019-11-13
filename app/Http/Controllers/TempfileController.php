@@ -13,17 +13,16 @@ class TempfileController extends Controller
      * @param IncrementViewCounts $incrementViewCounts
      * @param TemporaryAccessToFile $temporaryAccessToFile ,
      * @param DeactivateToken $deactivateToken
-     * @param string $temporary_token
+     * @param string $temporaryToken
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-
     public function file(
         IncrementViewCounts $incrementViewCounts,
         TemporaryAccessToFile $temporaryAccessToFile,
         DeactivateToken $deactivateToken,
-        string $temporary_token
+        string $temporaryToken
     ) {
-        $token = $temporaryAccessToFile->getToken($temporary_token);
+        $token = $temporaryAccessToFile->getToken($temporaryToken);
 
         if (!$token || !$token->file) {
             abort(404);

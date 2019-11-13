@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CheckFileDeleteDate;
+use App\Rules\CheckFileDeleteDateRule;
 
-class StoreFile extends FormRequest
+class StoreFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class StoreFile extends FormRequest
             'name' => 'required|string|max:255',
             'comment' => 'string',
             'file_name' => 'mimes:jpeg,bmp,png,jpg|max:5120',
-            'delete_date' => [new CheckFileDeleteDate ]
+            'delete_date' => [new CheckFileDeleteDateRule]
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreToken extends FormRequest
+class StoreTokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreToken extends FormRequest
     public function rules()
     {
         return [
-            'user_file_id' => "integer",
+
         ];
     }
 }

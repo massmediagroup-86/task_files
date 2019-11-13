@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFile;
+use App\Http\Requests\StoreFileRequest;
 use App\UserFile;
 use App\Services\ManageUserFile;
 use App\Contracts\SaveUserFileContract;
@@ -40,12 +40,12 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreFile $storeRequest
+     * @param StoreFileRequest $storeRequest
      * @param ManageUserFile $manageUserFile
      * @param SaveUserFileContract $saveUserFileContract
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFile $storeRequest, ManageUserFile $manageUserFile)
+    public function store(StoreFileRequest $storeRequest, ManageUserFile $manageUserFile)
     {
         $validated = $storeRequest->validated();
 
@@ -80,14 +80,14 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreFile $storeRequest
+     * @param StoreFileRequest $storeRequest
      * @param ManageUserFile $manageUserFile
      * @param UserFile $file
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(
-        StoreFile $storeRequest,
+        StoreFileRequest $storeRequest,
         ManageUserFile $manageUserFile,
         UserFile $file
     ) {
